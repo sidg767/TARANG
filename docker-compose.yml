@@ -73,6 +73,8 @@ services:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - COPERNICUS_USERNAME=${COPERNICUS_USERNAME:-}
       - COPERNICUS_PASSWORD=${COPERNICUS_PASSWORD:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - OPENROUTER_MODEL=${OPENROUTER_MODEL:-openrouter/free}
       - OFFLINE_MODE=${OFFLINE_MODE:-false}   # true → no outbound calls; serve data/ caches only
       - OPTION_B_MODE=${OPTION_B_MODE:-false} # true → also mount the hand-rolled /wms + /wcs
       - UVICORN_RELOAD=${UVICORN_RELOAD:-}    # set to 1 for dev hot-reload (restarts app on file changes; flaky on Docker Desktop)
@@ -162,8 +164,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      - VITE_API_BASE_URL=/api
-      - VITE_THREDDS_BASE_URL=/thredds
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-/api}
+      - VITE_THREDDS_BASE_URL=${VITE_THREDDS_BASE_URL:-/thredds}
     depends_on:
       - backend
     networks:
